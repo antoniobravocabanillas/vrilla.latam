@@ -117,8 +117,14 @@ const pillarNodes = [
 
 export function MeshPillarNav() {
   return (
-    <div className="relative min-h-[320px] overflow-hidden rounded-[2rem] border border-white/10 p-5 surface-panel">
-      <OperationalMesh variant="compact" className="absolute inset-0 rounded-none opacity-70" />
+    <div className="relative min-h-[280px] overflow-hidden rounded-[2rem] border border-white/10 p-5 surface-panel">
+      <OperationalMesh variant="compact" className="absolute inset-0 rounded-none opacity-35" />
+      <div className="absolute inset-x-5 top-5 flex items-center justify-between">
+        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Operational mesh</p>
+        <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[10px] text-slate-400">
+          Explore
+        </span>
+      </div>
       {pillarNodes.map((pillar, index) => (
         <motion.div
           key={pillar.label}
@@ -129,7 +135,7 @@ export function MeshPillarNav() {
         >
           <Link
             href={pillar.href}
-            className="group block rounded-2xl border border-white/10 bg-black/30 px-4 py-3 backdrop-blur-md transition hover:border-cyan-100/40 hover:bg-white/[0.08]"
+            className="group block rounded-2xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-md transition hover:border-cyan-100/40 hover:bg-white/[0.08]"
           >
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Pilar</p>
             <p className="mt-2 text-sm text-white">{pillar.label}</p>

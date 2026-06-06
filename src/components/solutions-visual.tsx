@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 const architectureNodes = [
   { label: "Demanda", x: "8%", y: "20%" },
@@ -113,22 +112,8 @@ const moduleCodes = {
 };
 
 export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[] }) {
-  const ref = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-  const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const next = Math.min(modules.length - 1, Math.max(0, Math.floor(latest * modules.length)));
-    setActive(next);
-  });
-
   return (
-    <section ref={ref} className="container-shell pb-24">
+    <section className="container-shell pb-24">
       <div className="lg:hidden">
         <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Módulos</p>
         <h2 className="mt-4 text-balance text-3xl font-medium tracking-[-0.04em] text-white sm:text-4xl">
@@ -153,93 +138,62 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
         </div>
       </div>
 
-      <div className="relative hidden lg:block" style={{ height: `${(modules.length + 1) * 100}vh` }}>
-        <div className="sticky top-20 flex h-[calc(100vh-5rem)] items-center overflow-hidden">
-          <div className="grid w-full gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-            <div className="relative z-10">
-              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Módulos</p>
-              <h2 className="mt-5 max-w-3xl text-balance text-5xl font-medium tracking-[-0.055em] text-white xl:text-6xl">
-                Cuatro transformaciones. Cuatro fallas estructurales resueltas.
-              </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-                No eliges un paquete decorativo. Identificamos qué capa está frenando la empresa y diseñamos la intervención adecuada.
-              </p>
+      <div className="relative hidden lg:block">
+        {modules.map((solution, index) => (
+          <div key={solution.title} className="relative h-[112vh]">
+            <div className="sticky top-20 flex h-[calc(100vh-5rem)] items-center overflow-hidden">
+              <div className="grid w-full gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+                <div className="relative z-10">
+                  <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Módulos</p>
+                  <h2 className="mt-5 max-w-3xl text-balance text-5xl font-medium tracking-[-0.055em] text-white xl:text-6xl">
+                    Cuatro transformaciones. Cuatro fallas estructurales resueltas.
+                  </h2>
+                  <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+                    No eliges un paquete decorativo. Identificamos qué capa está frenando la empresa y diseñamos la intervención adecuada.
+                  </p>
 
-              <div className="mt-10 flex gap-5">
-                <div className="h-44 w-px overflow-hidden rounded-full bg-white/10">
-                  <motion.div className="w-full rounded-full bg-cyan-100/80" style={{ height: progressHeight }} />
-                </div>
-                <div className="grid content-between py-1">
-                  {modules.map((module, index) => (
-                    <div
-                      key={module.title}
-                      className={`text-left font-mono text-[10px] uppercase tracking-[0.2em] transition ${
-                        active === index ? "text-cyan-100" : "text-slate-600"
-                      }`}
-                    >
-                      0{index + 1} · {moduleCodes[module.kind]}
+                  <div className="mt-10 flex gap-5">
+                    <div className="h-44 w-px overflow-hidden rounded-full bg-white/10">
+                      <motion.div
+                        className="w-full rounded-full bg-cyan-100/80"
+                        initial={{ height: `${(index / modules.length) * 100}%` }}
+                        whileInView={{ height: `${((index + 1) / modules.length) * 100}%` }}
+                        viewport={{ amount: 0.55 }}
+                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                      />
                     </div>
-                  ))}
+                    <div className="grid content-between py-1">
+                      {modules.map((module, item) => (
+                        <div
+                          key={module.title}
+                          className={`text-left font-mono text-[10px] uppercase tracking-[0.2em] transition ${
+                            item === index ? "text-cyan-100" : item < index ? "text-cyan-100/35" : "text-slate-600"
+                          }`}
+                        >
+                          0{item + 1} · {moduleCodes[module.kind]}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative min-h-[620px] [perspective:1800px]">
+                  <div className="absolute inset-0 rounded-[3rem] bg-[radial-gradient(circle_at_50%_40%,rgba(147,232,255,0.16),transparent_36%),linear-gradient(135deg,rgba(255,255,255,0.04),transparent_45%)] blur-2xl" />
+                  <div className="absolute inset-x-8 top-1/2 h-px bg-gradient-to-r from-transparent via-cyan-100/35 to-transparent" />
+                  <article
+                    className="absolute inset-x-0 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2.4rem] border border-white/12 p-8 surface-panel [transform-style:preserve-3d]"
+                  >
+                    <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-cyan-200/12 blur-3xl" />
+                    <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-100/55 to-transparent" />
+                    <SolutionModuleContent solution={solution} index={index} />
+                  </article>
                 </div>
               </div>
             </div>
-
-            <div className="relative min-h-[620px] [perspective:1800px]">
-              <div className="absolute inset-0 rounded-[3rem] bg-[radial-gradient(circle_at_50%_40%,rgba(147,232,255,0.16),transparent_36%),linear-gradient(135deg,rgba(255,255,255,0.04),transparent_45%)] blur-2xl" />
-              <div className="absolute inset-x-8 top-1/2 h-px bg-gradient-to-r from-transparent via-cyan-100/35 to-transparent" />
-              {modules.map((solution, index) => (
-                <ScrollModuleCard
-                  key={solution.title}
-                  solution={solution}
-                  index={index}
-                  total={modules.length}
-                  active={active}
-                  reduced={Boolean(prefersReducedMotion)}
-                />
-              ))}
-            </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
-  );
-}
-
-function ScrollModuleCard({
-  solution,
-  index,
-  total,
-  active,
-  reduced,
-}: {
-  solution: SolutionModule;
-  index: number;
-  total: number;
-  active: number;
-  reduced: boolean;
-}) {
-  const offset = index - active;
-  const visible = Math.abs(offset) <= 1;
-  const isActive = offset === 0;
-
-  return (
-    <motion.article
-      animate={{
-        opacity: visible ? (isActive ? 1 : 0.22) : 0,
-        x: reduced ? 0 : offset * 220,
-        y: reduced ? 0 : offset * 48,
-        scale: reduced ? 1 : isActive ? 1 : 0.88,
-        rotateY: reduced ? 0 : offset * -18,
-        rotateX: reduced ? 0 : isActive ? 0 : offset * 3,
-      }}
-      transition={{ duration: 0.68, ease: [0.16, 1, 0.3, 1] }}
-      style={{ zIndex: total - Math.abs(offset), pointerEvents: isActive ? "auto" : "none" }}
-      className="absolute inset-x-0 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2.4rem] border border-white/12 p-8 surface-panel [transform-style:preserve-3d]"
-    >
-      <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-cyan-200/12 blur-3xl" />
-      <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-100/55 to-transparent" />
-      <SolutionModuleContent solution={solution} index={index} />
-    </motion.article>
   );
 }
 

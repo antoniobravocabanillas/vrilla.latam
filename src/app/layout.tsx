@@ -6,12 +6,22 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vrilla.solutions"),
   title: {
     default: "VRILLA — Transformación operacional digital",
     template: "%s — VRILLA",
   },
   description:
     "VRILLA diseña sistemas, automatización e infraestructura digital para transformar empresas técnicas y operativas de LATAM en operaciones escalables.",
+  openGraph: {
+    title: "VRILLA — Transformación operacional digital",
+    description:
+      "Sistemas, automatización e infraestructura digital para empresas técnicas y operativas de LATAM.",
+    url: "https://vrilla.solutions",
+    siteName: "VRILLA",
+    locale: "es_PE",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

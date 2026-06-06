@@ -12,7 +12,14 @@ const architectureNodes = [
 
 export function SolutionsArchitecture() {
   return (
-    <div className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-white/10 p-5 surface-panel">
+    <motion.div
+      initial={{ opacity: 0, x: 42, scale: 0.985, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, amount: 0.32 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-white/10 p-5 surface-panel"
+      style={{ willChange: "transform, opacity, filter" }}
+    >
       <div className="noise-mask absolute inset-0" />
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         {[
@@ -56,7 +63,7 @@ export function SolutionsArchitecture() {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -126,10 +133,10 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
           {modules.map((solution, index) => (
             <motion.article
               key={solution.title}
-              initial={{ opacity: 0, y: 26, scale: 0.99 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, x: 22, y: 18, scale: 0.99 }}
+              whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.65, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.72, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
               className="rounded-[1.9rem] border border-white/10 p-6 surface-panel"
             >
               <SolutionModuleContent solution={solution} index={index} />
@@ -138,12 +145,19 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
         </div>
       </div>
 
-      <div className="relative hidden lg:block">
+      <div data-solution-modules className="relative hidden lg:block">
         {modules.map((solution, index) => (
-          <div key={solution.title} className="relative h-[112vh]">
-            <div className="sticky top-20 flex h-[calc(100vh-5rem)] items-center overflow-hidden">
+          <section key={solution.title} className="relative min-h-screen">
+            <div className="sticky top-20 flex h-[calc(100vh-5rem)] min-h-[720px] items-center overflow-hidden">
               <div className="grid w-full gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-                <div className="relative z-10">
+                <motion.div
+                  initial={{ opacity: 0.72, x: -28, filter: "blur(7px)" }}
+                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  viewport={{ amount: 0.58 }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative z-10"
+                  style={{ willChange: "transform, opacity, filter" }}
+                >
                   <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Módulos</p>
                   <h2 className="mt-5 max-w-3xl text-balance text-5xl font-medium tracking-[-0.055em] text-white xl:text-6xl">
                     Cuatro transformaciones. Cuatro fallas estructurales resueltas.
@@ -156,9 +170,9 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
                     <div className="h-44 w-px overflow-hidden rounded-full bg-white/10">
                       <motion.div
                         className="w-full rounded-full bg-cyan-100/80"
-                        initial={{ height: `${(index / modules.length) * 100}%` }}
+                        initial={{ height: `${Math.max(10, (index / modules.length) * 100)}%` }}
                         whileInView={{ height: `${((index + 1) / modules.length) * 100}%` }}
-                        viewport={{ amount: 0.55 }}
+                        viewport={{ amount: 0.6 }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                       />
                     </div>
@@ -166,7 +180,7 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
                       {modules.map((module, item) => (
                         <div
                           key={module.title}
-                          className={`text-left font-mono text-[10px] uppercase tracking-[0.2em] transition ${
+                          className={`text-left font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-500 ${
                             item === index ? "text-cyan-100" : item < index ? "text-cyan-100/35" : "text-slate-600"
                           }`}
                         >
@@ -175,22 +189,28 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
                       ))}
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 <div className="relative min-h-[620px] [perspective:1800px]">
                   <div className="absolute inset-0 rounded-[3rem] bg-[radial-gradient(circle_at_50%_40%,rgba(147,232,255,0.16),transparent_36%),linear-gradient(135deg,rgba(255,255,255,0.04),transparent_45%)] blur-2xl" />
                   <div className="absolute inset-x-8 top-1/2 h-px bg-gradient-to-r from-transparent via-cyan-100/35 to-transparent" />
-                  <article
+                  <motion.article
+                    data-solution-card={index}
+                    initial={{ opacity: 0.72, x: 56, y: 16, scale: 0.982, rotateY: 6, filter: "blur(7px)" }}
+                    whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotateY: 0, filter: "blur(0px)" }}
+                    viewport={{ amount: 0.58 }}
+                    transition={{ duration: 0.92, ease: [0.16, 1, 0.3, 1] }}
                     className="absolute inset-x-0 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2.4rem] border border-white/12 p-8 surface-panel [transform-style:preserve-3d]"
+                    style={{ willChange: "transform, opacity, filter" }}
                   >
                     <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-cyan-200/12 blur-3xl" />
                     <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-100/55 to-transparent" />
                     <SolutionModuleContent solution={solution} index={index} />
-                  </article>
+                  </motion.article>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         ))}
       </div>
     </section>

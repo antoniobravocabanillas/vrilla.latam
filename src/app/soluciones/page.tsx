@@ -38,14 +38,14 @@ export default function SolucionesPage() {
       copy="Cada intervención de VRILLA reorganiza una parte crítica del negocio: percepción, flujo operativo, sistema comercial o infraestructura digital."
     >
       <section className="container-shell grid gap-8 pb-24 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-        <div>
+        <Reveal direction="left">
           <SectionHeading
             eyebrow="Arquitectura"
             title="Tres capas conectadas. Una sola operación."
             copy="Growth genera entrada, Systems ordena la ejecución e Intelligence devuelve lectura ejecutiva. Separadas son áreas; conectadas se convierten en infraestructura empresarial."
           />
-        </div>
-        <Reveal delay={0.08}>
+        </Reveal>
+        <Reveal delay={0.08} direction="right">
           <SolutionsArchitecture />
         </Reveal>
       </section>
@@ -58,10 +58,12 @@ export default function SolucionesPage() {
 
       <section className="container-shell pb-24">
         <div className="rounded-[2rem] border border-white/10 p-6 surface-panel lg:p-8">
-          <SectionHeading
-            eyebrow="Transformación"
-            title="El cambio visible no es una entrega. Es una empresa que deja de operar por excepción."
-          />
+          <Reveal direction="left">
+            <SectionHeading
+              eyebrow="Transformación"
+              title="El cambio visible no es una entrega. Es una empresa que deja de operar por excepción."
+            />
+          </Reveal>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             {[
               ["Antes", "WhatsApp, Excel, seguimiento informal, fundador como nodo central."],
@@ -69,7 +71,7 @@ export default function SolucionesPage() {
               ["Antes", "Ventas reactivas y percepción menor a la capacidad real."],
               ["Después", "Autoridad comercial, pipeline medible y estructura lista para escalar."],
             ].map(([label, body], index) => (
-              <Reveal key={`${label}-${index}`} delay={index * 0.04}>
+              <Reveal key={`${label}-${index}`} delay={index * 0.04} direction={index % 2 === 0 ? "left" : "right"}>
                 <article className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">{label}</p>
                   <p className="mt-4 leading-7 text-slate-200">{body}</p>
@@ -81,18 +83,20 @@ export default function SolucionesPage() {
       </section>
 
       <section className="container-shell grid gap-6 pb-24 lg:grid-cols-[0.8fr_1.2fr]">
-        <SectionHeading
-          eyebrow="Dimensionamiento"
-          title="La inversión se define por complejidad, no por catálogo."
-          copy="VRILLA no publica precios fijos porque cada empresa requiere un nivel distinto de arquitectura, integración y acompañamiento."
-        />
+        <Reveal direction="left">
+          <SectionHeading
+            eyebrow="Dimensionamiento"
+            title="La inversión se define por complejidad, no por catálogo."
+            copy="VRILLA no publica precios fijos porque cada empresa requiere un nivel distinto de arquitectura, integración y acompañamiento."
+          />
+        </Reveal>
         <div className="grid gap-4 sm:grid-cols-3">
           {[
             ["Diagnóstico", "Mapa de fricción, prioridades y alcance real."],
             ["Implementación", "Diseño, automatización, integración y adopción."],
             ["Evolución", "Optimización, gobierno y escalabilidad."],
           ].map(([title, body], index) => (
-            <Reveal key={title} delay={index * 0.04}>
+            <Reveal key={title} delay={index * 0.04} direction="right">
               <article className="rounded-[1.6rem] border border-white/10 p-5 surface-panel">
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">0{index + 1}</p>
                 <h3 className="mt-5 text-xl tracking-[-0.03em]">{title}</h3>
@@ -105,13 +109,15 @@ export default function SolucionesPage() {
 
       <section className="container-shell pb-24">
         <div className="rounded-[2rem] border border-white/10 p-6 surface-panel lg:flex lg:items-center lg:justify-between lg:p-8">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Siguiente paso</p>
-            <h2 className="mt-4 text-3xl tracking-[-0.04em] sm:text-4xl">Mapeemos qué capa está frenando tu operación.</h2>
-          </div>
-          <div className="mt-6 lg:mt-0">
+          <Reveal direction="left">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Siguiente paso</p>
+              <h2 className="mt-4 text-3xl tracking-[-0.04em] sm:text-4xl">Mapeemos qué capa está frenando tu operación.</h2>
+            </div>
+          </Reveal>
+          <Reveal delay={0.06} direction="right" className="mt-6 lg:mt-0">
             <PremiumLink href="/contacto">Solicitar diagnóstico operacional</PremiumLink>
-          </div>
+          </Reveal>
         </div>
       </section>
     </InteriorPage>

@@ -44,19 +44,27 @@ export function Reveal({
   children,
   delay = 0,
   className,
+  direction = "up",
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  direction?: "up" | "left" | "right";
 }) {
+  const initialOffset = {
+    up: { x: 0, y: 28 },
+    left: { x: -32, y: 12 },
+    right: { x: 32, y: 12 },
+  }[direction];
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28, scale: 0.988 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, ...initialOffset, scale: 0.988, filter: "blur(7px)" }}
+      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.72, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.78, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
-      style={{ willChange: "transform, opacity" }}
+      style={{ willChange: "transform, opacity, filter" }}
     >
       {children}
     </motion.div>

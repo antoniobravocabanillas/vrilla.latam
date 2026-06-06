@@ -1,6 +1,6 @@
 import { InteriorPage } from "@/components/interior-page";
 import { SolutionLayerSystem } from "@/components/interactive-systems";
-import { SolutionsArchitecture, SolutionModuleVisual } from "@/components/solutions-visual";
+import { SolutionModulesShowcase, SolutionsArchitecture } from "@/components/solutions-visual";
 import { PremiumLink, Reveal, SectionHeading } from "@/components/ui-primitives";
 
 const solutionModules = [
@@ -54,33 +54,7 @@ export default function SolucionesPage() {
         <SolutionLayerSystem />
       </section>
 
-      <section className="container-shell pb-24">
-        <SectionHeading
-          eyebrow="Módulos"
-          title="Cuatro transformaciones. Cuatro fallas estructurales resueltas."
-          copy="No eliges un paquete decorativo. Identificamos qué capa está frenando la empresa y diseñamos la intervención adecuada."
-        />
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
-          {solutionModules.map((solution, index) => (
-            <Reveal key={solution.title} delay={index * 0.05}>
-              <article className="rounded-[1.9rem] border border-white/10 p-6 surface-panel">
-                <h3 className="text-2xl tracking-[-0.03em]">{solution.title}</h3>
-                <div className="mt-5 grid gap-4">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Se activa cuando</p>
-                    <p className="mt-2 leading-7 text-slate-300">{solution.trigger}</p>
-                  </div>
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Qué cambia</p>
-                    <p className="mt-2 leading-7 text-slate-100">{solution.change}</p>
-                  </div>
-                </div>
-                <SolutionModuleVisual kind={solution.kind} />
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <SolutionModulesShowcase modules={solutionModules} />
 
       <section className="container-shell pb-24">
         <div className="rounded-[2rem] border border-white/10 p-6 surface-panel lg:p-8">

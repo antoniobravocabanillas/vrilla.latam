@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, MotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 
 const architectureNodes = [
@@ -153,7 +153,7 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
         </div>
       </div>
 
-      <div className="relative hidden h-[430vh] lg:block">
+      <div className="relative hidden lg:block" style={{ height: `${(modules.length + 1) * 100}vh` }}>
         <div className="sticky top-20 flex h-[calc(100vh-5rem)] items-center overflow-hidden">
           <div className="grid w-full gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
             <div className="relative z-10">
@@ -193,7 +193,7 @@ export function SolutionModulesShowcase({ modules }: { modules: SolutionModule[]
                   solution={solution}
                   index={index}
                   total={modules.length}
-                  progress={scrollYProgress}
+                  active={active}
                   reduced={Boolean(prefersReducedMotion)}
                 />
               ))}
@@ -209,31 +209,31 @@ function ScrollModuleCard({
   solution,
   index,
   total,
-  progress,
+  active,
   reduced,
 }: {
   solution: SolutionModule;
   index: number;
   total: number;
-  progress: MotionValue<number>;
+  active: number;
   reduced: boolean;
 }) {
-  const segment = 1 / total;
-  const center = (index + 0.5) * segment;
-  const enter = Math.max(0, center - segment * 0.92);
-  const exit = Math.min(1, center + segment * 0.92);
-  const first = index === 0;
-  const last = index === total - 1;
-  const opacity = useTransform(progress, [enter, center, exit], first ? [1, 1, 0] : last ? [0, 1, 1] : [0, 1, 0]);
-  const x = useTransform(progress, [enter, center, exit], reduced ? [0, 0, 0] : first ? [0, 0, -220] : last ? [220, 0, 0] : [220, 0, -220]);
-  const y = useTransform(progress, [enter, center, exit], reduced ? [0, 0, 0] : first ? [0, 0, -46] : last ? [72, 0, 0] : [72, 0, -46]);
-  const scale = useTransform(progress, [enter, center, exit], reduced ? [1, 1, 1] : first ? [1, 1, 0.9] : last ? [0.86, 1, 1] : [0.86, 1, 0.9]);
-  const rotateY = useTransform(progress, [enter, center, exit], reduced ? [0, 0, 0] : first ? [0, 0, -22] : last ? [22, 0, 0] : [22, 0, -22]);
-  const rotateX = useTransform(progress, [enter, center, exit], reduced ? [0, 0, 0] : first ? [0, 0, -4] : last ? [4, 0, 0] : [4, 0, -4]);
+  const offset = index - active;
+  const visible = Math.abs(offset) <= 1;
+  const isActive = offset === 0;
 
   return (
     <motion.article
-      style={{ opacity, x, y, scale, rotateY, rotateX, zIndex: total - index }}
+      animate={{
+        opacity: visible ? (isActive ? 1 : 0.22) : 0,
+        x: reduced ? 0 : offset * 220,
+        y: reduced ? 0 : offset * 48,
+        scale: reduced ? 1 : isActive ? 1 : 0.88,
+        rotateY: reduced ? 0 : offset * -18,
+        rotateX: reduced ? 0 : isActive ? 0 : offset * 3,
+      }}
+      transition={{ duration: 0.68, ease: [0.16, 1, 0.3, 1] }}
+      style={{ zIndex: total - Math.abs(offset), pointerEvents: isActive ? "auto" : "none" }}
       className="absolute inset-x-0 top-1/2 -translate-y-1/2 overflow-hidden rounded-[2.4rem] border border-white/12 p-8 surface-panel [transform-style:preserve-3d]"
     >
       <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-cyan-200/12 blur-3xl" />

@@ -1,9 +1,8 @@
 import { InteriorPage } from "@/components/interior-page";
 import { MethodScrollTrace } from "@/components/interactive-systems";
-import { OperationalMesh } from "@/components/operational-mesh";
 import { MethodBlueprint } from "@/components/platform-visuals";
 import { methodOutputs } from "@/components/site-data";
-import { SectionHeading } from "@/components/ui-primitives";
+import { Reveal, SectionHeading } from "@/components/ui-primitives";
 
 export default function MetodoPage() {
   return (
@@ -18,20 +17,21 @@ export default function MetodoPage() {
           title="Cada fase produce un activo operativo concreto."
           copy="No avanzamos por hitos decorativos, sino por evidencia: primero se ve la fricción, luego la arquitectura, después el sistema y finalmente la capacidad de escalar."
         />
-        <div className="relative">
-          <OperationalMesh variant="compact" className="absolute inset-0 opacity-[0.08]" />
+        <Reveal delay={0.08}>
           <MethodBlueprint />
-        </div>
+        </Reveal>
       </section>
 
       <section className="container-shell pb-24">
         <div className="grid gap-4 lg:grid-cols-5">
           {methodOutputs.map((item, index) => (
-            <article key={item.output} className="rounded-[1.6rem] border border-white/10 p-5 surface-panel">
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">0{index + 1}</p>
-              <h2 className="mt-5 text-xl tracking-[-0.03em]">{item.output}</h2>
-              <p className="mt-4 text-sm leading-6 text-slate-300">{item.detail}</p>
-            </article>
+            <Reveal key={item.output} delay={index * 0.04}>
+              <article className="rounded-[1.6rem] border border-white/10 p-5 surface-panel">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">0{index + 1}</p>
+                <h2 className="mt-5 text-xl tracking-[-0.03em]">{item.output}</h2>
+                <p className="mt-4 text-sm leading-6 text-slate-300">{item.detail}</p>
+              </article>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -52,11 +52,13 @@ export default function MetodoPage() {
               ["2", "Modelamos la operación objetivo, no solo las herramientas."],
               ["3", "Conectamos flujos, responsables y lectura ejecutiva."],
               ["4", "Instalamos reglas para escalar sin volver al caos."],
-            ].map(([number, copy]) => (
-              <div key={number} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
-                <p className="font-mono text-xs text-cyan-100/55">{number}</p>
-                <p className="mt-5 leading-7 text-slate-200">{copy}</p>
-              </div>
+            ].map(([number, copy], index) => (
+              <Reveal key={number} delay={index * 0.04}>
+                <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+                  <p className="font-mono text-xs text-cyan-100/55">{number}</p>
+                  <p className="mt-5 leading-7 text-slate-200">{copy}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>

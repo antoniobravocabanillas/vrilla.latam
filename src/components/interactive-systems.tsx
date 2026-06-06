@@ -6,9 +6,9 @@ import { useRef, useState } from "react";
 export function SolutionLayerSystem() {
   const [active, setActive] = useState(1);
   const layers = [
-    { title: "Growth", copy: "Entrada, autoridad y demanda calificada." },
-    { title: "Systems", copy: "Procesos, automatización y coordinación." },
-    { title: "Intelligence", copy: "KPIs, trazabilidad y decisión." },
+    { title: "Growth", copy: "Entrada, autoridad y demanda calificada.", status: "Demand engine" },
+    { title: "Systems", copy: "Procesos, automatización y coordinación.", status: "Operational core" },
+    { title: "Intelligence", copy: "KPIs, trazabilidad y decisión.", status: "Executive layer" },
   ];
   const codeStreams = [
     [
@@ -33,6 +33,42 @@ export function SolutionLayerSystem() {
       "decision.layer.publish(snapshot);",
     ],
   ];
+  const layerOutputs = [
+    {
+      label: "Growth output",
+      title: "Demanda ordenada antes de llegar al equipo comercial.",
+      copy: "El sistema califica señales, prioriza oportunidades y convierte percepción en pipeline interpretable.",
+      metrics: [
+        ["Autoridad", "82%"],
+        ["Pipeline", "74%"],
+        ["Fit técnico", "68%"],
+      ],
+      signals: ["Mercado", "Lead", "Sector", "Valor"],
+    },
+    {
+      label: "Systems output",
+      title: "La operación deja de depender de memoria y mensajes sueltos.",
+      copy: "Los flujos conectan responsables, entregables y estados para que campo y oficina operen con la misma lógica.",
+      metrics: [
+        ["Trazabilidad", "88%"],
+        ["Automatización", "71%"],
+        ["Coordinación", "79%"],
+      ],
+      signals: ["Campo", "Oficina", "QA/QC", "Entrega"],
+    },
+    {
+      label: "Intelligence output",
+      title: "Dirección lee la empresa sin perseguir información.",
+      copy: "Los datos operativos se transforman en KPIs, alertas tempranas y lectura ejecutiva para decidir con control.",
+      metrics: [
+        ["Visibilidad", "91%"],
+        ["Riesgo", "63%"],
+        ["Decisión", "86%"],
+      ],
+      signals: ["KPI", "Riesgo", "Margen", "Avance"],
+    },
+  ];
+  const output = layerOutputs[active];
 
   return (
     <div className="rounded-[2rem] border border-white/10 p-5 surface-panel">
@@ -41,8 +77,9 @@ export function SolutionLayerSystem() {
           <button
             key={layer.title}
             type="button"
-            onMouseEnter={() => setActive(index)}
+            onClick={() => setActive(index)}
             onFocus={() => setActive(index)}
+            aria-pressed={active === index}
             className={`rounded-[1.4rem] border p-4 text-left transition ${
               active === index
                 ? "border-cyan-100/35 bg-white/[0.08]"
@@ -50,47 +87,92 @@ export function SolutionLayerSystem() {
             }`}
           >
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Layer 0{index + 1}</p>
-            <p className="mt-4 text-xl">{layer.title}</p>
+            <div className="mt-4 flex items-center justify-between gap-4">
+              <p className="text-xl">{layer.title}</p>
+              <span className={`size-2 rounded-full ${active === index ? "bg-cyan-100" : "bg-white/20"}`} />
+            </div>
             <p className="mt-3 text-sm leading-6 text-slate-300">{layer.copy}</p>
+            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{layer.status}</p>
           </button>
         ))}
       </div>
-      <div className="relative mt-5 h-44 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#03070c]/80 font-mono shadow-inner sm:h-40">
+      <div className="relative mt-5 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#03070c]/80 shadow-inner">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),transparent_35%),radial-gradient(circle_at_18%_0%,rgba(165,238,255,0.12),transparent_34%)]" />
-        <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-white/8 bg-black/20 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-cyan-100/50">
+        <div className="relative z-10 flex items-center justify-between border-b border-white/8 bg-black/20 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/50">
           <span>Operational runtime</span>
           <span className="text-cyan-100/75">Layer 0{active + 1}</span>
         </div>
-        <motion.div
-          className="absolute bottom-0 top-10 w-px bg-gradient-to-b from-transparent via-cyan-100/80 to-transparent"
-          animate={{ left: ["7%", "92%", "7%"], opacity: [0.18, 0.75, 0.18] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          key={active}
-          className="absolute inset-x-4 top-14 space-y-2 text-[11px] leading-5 text-slate-300 sm:text-xs"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: ["0%", "-38%"] }}
-          transition={{
-            opacity: { duration: 0.35 },
-            y: { duration: 9, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" },
-          }}
-        >
-          {[...codeStreams[active], ...codeStreams[active]].map((line, index) => (
-            <div
-              key={`${line}-${index}`}
-              className="grid grid-cols-[2.25rem_1fr] gap-3 rounded-lg border border-white/[0.035] bg-white/[0.025] px-3 py-1.5"
+        <div className="relative z-10 grid gap-4 p-4 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="relative min-h-64 overflow-hidden rounded-[1.15rem] border border-white/8 bg-black/25 font-mono">
+            <motion.div
+              className="absolute bottom-0 top-0 w-px bg-gradient-to-b from-transparent via-cyan-100/80 to-transparent"
+              animate={{ left: ["7%", "92%", "7%"], opacity: [0.12, 0.72, 0.12] }}
+              transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              key={`code-${active}`}
+              className="absolute inset-x-3 top-3 space-y-2 text-[11px] leading-5 text-slate-300 sm:text-xs"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: ["0%", "-34%"] }}
+              transition={{
+                opacity: { duration: 0.28 },
+                y: { duration: 9, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" },
+              }}
             >
-              <span className="select-none text-cyan-100/35">{String(index + 1).padStart(2, "0")}</span>
-              <span>
-                <span className="text-cyan-100/60">vrilla.</span>
-                <span className="text-slate-200">{line}</span>
-                {index === active + 1 ? <span className="ml-1 animate-pulse text-cyan-100">|</span> : null}
-              </span>
+              {[...codeStreams[active], ...codeStreams[active]].map((line, index) => (
+                <div
+                  key={`${line}-${index}`}
+                  className="grid grid-cols-[2.25rem_1fr] gap-3 rounded-lg border border-white/[0.035] bg-white/[0.025] px-3 py-1.5"
+                >
+                  <span className="select-none text-cyan-100/35">{String(index + 1).padStart(2, "0")}</span>
+                  <span>
+                    <span className="text-cyan-100/60">vrilla.</span>
+                    <span className="text-slate-200">{line}</span>
+                    {index === active + 1 ? <span className="ml-1 animate-pulse text-cyan-100">|</span> : null}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#03070c] to-transparent" />
+          </div>
+
+          <motion.div
+            key={`output-${active}`}
+            initial={{ opacity: 0, x: 18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-[1.15rem] border border-cyan-100/12 bg-white/[0.035] p-5"
+          >
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">{output.label}</p>
+            <h3 className="mt-4 text-2xl tracking-[-0.04em] text-white">{output.title}</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{output.copy}</p>
+            <div className="mt-6 grid gap-3">
+              {output.metrics.map(([label, value], index) => (
+                <div key={label}>
+                  <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                    <span>{label}</span>
+                    <span className="text-cyan-100/70">{value}</span>
+                  </div>
+                  <div className="h-1.5 overflow-hidden rounded-full bg-white/8">
+                    <motion.div
+                      className="h-full rounded-full bg-cyan-100/75"
+                      initial={{ width: "0%" }}
+                      animate={{ width: value }}
+                      transition={{ duration: 0.85, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </motion.div>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#03070c] to-transparent" />
+            <div className="mt-5 flex flex-wrap gap-2">
+              {output.signals.map((signal) => (
+                <span key={signal} className="rounded-full border border-white/10 bg-black/25 px-3 py-1 text-xs text-slate-300">
+                  {signal}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

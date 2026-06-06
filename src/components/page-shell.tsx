@@ -5,7 +5,7 @@ export function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SiteHeader />
-      <main className="overflow-hidden pt-20">{children}</main>
+      <main className="overflow-hidden pt-16 sm:pt-18 lg:pt-20">{children}</main>
       <SiteFooter />
     </>
   );

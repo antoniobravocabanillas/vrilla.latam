@@ -15,6 +15,7 @@ export function DesktopNav() {
           <Link
             key={item.href}
             href={item.href}
+            scroll
             className={`relative transition-colors hover:text-white after:absolute after:-bottom-2 after:left-0 after:h-px after:bg-cyan-100/80 after:transition-all ${
               active ? "text-white after:w-full" : "after:w-0 hover:after:w-full"
             }`}

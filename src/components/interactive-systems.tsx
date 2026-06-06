@@ -10,6 +10,29 @@ export function SolutionLayerSystem() {
     { title: "Systems", copy: "Procesos, automatización y coordinación." },
     { title: "Intelligence", copy: "KPIs, trazabilidad y decisión." },
   ];
+  const codeStreams = [
+    [
+      "const demand = qualify(source.latam);",
+      "brand.authority.sync(market.signal);",
+      "pipeline.route({ lead, sector, urgency });",
+      "crm.context.attach(company.profile);",
+      "growth.score.update(opportunity.value);",
+    ],
+    [
+      "operation.map(field, office, delivery);",
+      "workflow.normalize(whatsapp, excel);",
+      "automation.trigger('handoff.ready');",
+      "traceability.lock(project.id);",
+      "systems.queue.resolve(bottleneck);",
+    ],
+    [
+      "kpi.margin.read(project.current);",
+      "risk.signal.detect(dependency.field);",
+      "executive.view.update(control.panel);",
+      "bi.trace.connect(scope, delivery);",
+      "decision.layer.publish(snapshot);",
+    ],
+  ];
 
   return (
     <div className="rounded-[2rem] border border-white/10 p-5 surface-panel">
@@ -32,18 +55,42 @@ export function SolutionLayerSystem() {
           </button>
         ))}
       </div>
-      <div className="relative mt-5 h-24 overflow-hidden rounded-[1.4rem] border border-white/10 bg-black/20">
-        {[0, 1, 2].map((item) => (
-          <motion.div
-            key={item}
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-100/0 via-cyan-100/80 to-cyan-100/0"
-            animate={{
-              width: active === item ? ["10%", "85%", "10%"] : "10%",
-              opacity: active === item ? [0.1, 1, 0.1] : 0.08,
-            }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        ))}
+      <div className="relative mt-5 h-44 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#03070c]/80 font-mono shadow-inner sm:h-40">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),transparent_35%),radial-gradient(circle_at_18%_0%,rgba(165,238,255,0.12),transparent_34%)]" />
+        <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-white/8 bg-black/20 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-cyan-100/50">
+          <span>Operational runtime</span>
+          <span className="text-cyan-100/75">Layer 0{active + 1}</span>
+        </div>
+        <motion.div
+          className="absolute bottom-0 top-10 w-px bg-gradient-to-b from-transparent via-cyan-100/80 to-transparent"
+          animate={{ left: ["7%", "92%", "7%"], opacity: [0.18, 0.75, 0.18] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          key={active}
+          className="absolute inset-x-4 top-14 space-y-2 text-[11px] leading-5 text-slate-300 sm:text-xs"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: ["0%", "-38%"] }}
+          transition={{
+            opacity: { duration: 0.35 },
+            y: { duration: 9, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" },
+          }}
+        >
+          {[...codeStreams[active], ...codeStreams[active]].map((line, index) => (
+            <div
+              key={`${line}-${index}`}
+              className="grid grid-cols-[2.25rem_1fr] gap-3 rounded-lg border border-white/[0.035] bg-white/[0.025] px-3 py-1.5"
+            >
+              <span className="select-none text-cyan-100/35">{String(index + 1).padStart(2, "0")}</span>
+              <span>
+                <span className="text-cyan-100/60">vrilla.</span>
+                <span className="text-slate-200">{line}</span>
+                {index === active + 1 ? <span className="ml-1 animate-pulse text-cyan-100">|</span> : null}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#03070c] to-transparent" />
       </div>
     </div>
   );

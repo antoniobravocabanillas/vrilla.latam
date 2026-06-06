@@ -1,7 +1,6 @@
 import { InteriorPage } from "@/components/interior-page";
 import { SolutionLayerSystem } from "@/components/interactive-systems";
 import { SolutionsArchitecture, SolutionModuleVisual } from "@/components/solutions-visual";
-import { divisions } from "@/components/site-data";
 import { PremiumLink, Reveal, SectionHeading } from "@/components/ui-primitives";
 
 const solutionModules = [
@@ -49,28 +48,6 @@ export default function SolucionesPage() {
         <Reveal delay={0.08}>
           <SolutionsArchitecture />
         </Reveal>
-      </section>
-
-      <section className="container-shell pb-24">
-        <div className="grid gap-5 lg:grid-cols-3">
-          {divisions.map((division, index) => (
-            <Reveal key={division.name} delay={index * 0.06}>
-              <article className="relative overflow-hidden rounded-[2rem] border border-white/10 p-6 surface-panel">
-                <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-cyan-300/10 blur-3xl" />
-                <p className="font-mono text-xs uppercase tracking-[0.22em] text-cyan-100/55">Layer 0{index + 1}</p>
-                <h2 className="mt-6 text-2xl tracking-[-0.03em]">{division.name}</h2>
-                <p className="mt-4 leading-7 text-slate-300">{division.description}</p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {division.signals.map((signal) => (
-                    <span key={signal} className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-slate-300">
-                      {signal}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
       </section>
 
       <section className="container-shell pb-24">

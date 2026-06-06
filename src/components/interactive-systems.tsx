@@ -2,14 +2,11 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { divisions } from "@/components/site-data";
 
 export function SolutionLayerSystem() {
   const [active, setActive] = useState(1);
-  const layers = [
-    { title: "Growth", copy: "Entrada, autoridad y demanda calificada.", status: "Demand engine" },
-    { title: "Systems", copy: "Procesos, automatización y coordinación.", status: "Operational core" },
-    { title: "Intelligence", copy: "KPIs, trazabilidad y decisión.", status: "Executive layer" },
-  ];
+  const layerStatus = ["Demand engine", "Operational core", "Executive layer"];
   const codeStreams = [
     [
       "const demand = qualify(source.latam);",
@@ -73,9 +70,9 @@ export function SolutionLayerSystem() {
   return (
     <div className="rounded-[2rem] border border-white/10 p-5 surface-panel">
       <div className="grid gap-3 md:grid-cols-3">
-        {layers.map((layer, index) => (
+        {divisions.map((layer, index) => (
           <button
-            key={layer.title}
+            key={layer.name}
             type="button"
             onClick={() => setActive(index)}
             onFocus={() => setActive(index)}
@@ -88,11 +85,18 @@ export function SolutionLayerSystem() {
           >
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Layer 0{index + 1}</p>
             <div className="mt-4 flex items-center justify-between gap-4">
-              <p className="text-xl">{layer.title}</p>
+              <p className="text-xl tracking-[-0.03em]">{layer.name}</p>
               <span className={`size-2 rounded-full ${active === index ? "bg-cyan-100" : "bg-white/20"}`} />
             </div>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{layer.copy}</p>
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{layer.status}</p>
+            <p className="mt-4 min-h-[4.5rem] text-sm leading-6 text-slate-300">{layer.description}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {layer.signals.map((signal) => (
+                <span key={signal} className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-slate-300">
+                  {signal}
+                </span>
+              ))}
+            </div>
+            <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{layerStatus[index]}</p>
           </button>
         ))}
       </div>

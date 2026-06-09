@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { Reveal } from "@/components/ui-primitives";
+import { PremiumLink, Reveal } from "@/components/ui-primitives";
 
 type Industry = {
   name: string;
@@ -11,90 +11,104 @@ type Industry = {
   system: string;
   executiveSignal: string;
   metric: string;
+  phase: "primary" | "expansion";
 };
 
-export const industrySystems: Industry[] = [
+const primaryIndustries: Industry[] = [
   {
-    name: "Topografía",
+    name: "Topografía y Geomática",
     code: "TOPO",
-    friction: "Cuadrillas, entregables y aprobaciones viven en canales separados.",
-    system: "Trazabilidad campo-oficina, estados por proyecto y control documental.",
+    friction: "Levantamientos, entregables, campo y oficina operan con información fragmentada.",
+    system: "Trazabilidad campo-oficina, estados por proyecto y control documental especializado.",
     executiveSignal: "Avance real por frente",
     metric: "82%",
+    phase: "primary",
   },
   {
     name: "Construcción",
-    code: "BUILD",
-    friction: "Obra, administración, proveedores y gerencia operan con lecturas distintas.",
-    system: "Flujos de avance, alertas de desviación y lectura ejecutiva de riesgos.",
+    code: "CONST",
+    friction: "Obra, administración, proveedores y gerencia trabajan con lecturas distintas.",
+    system: "Flujos de avance, evidencias, alertas de desviación y lectura ejecutiva de riesgos.",
     executiveSignal: "Riesgo operativo visible",
     metric: "71%",
+    phase: "primary",
   },
   {
     name: "Ingeniería",
-    code: "ENG",
-    friction: "Proyectos complejos se diluyen entre versiones, responsables y revisiones.",
+    code: "ING",
+    friction: "Proyectos complejos se diluyen entre versiones, responsables, revisiones y entregables.",
     system: "Arquitectura de entregables, responsables, hitos y gobierno de información.",
     executiveSignal: "Control de entregables",
     metric: "64%",
-  },
-  {
-    name: "Geomática",
-    code: "GEO",
-    friction: "Datos técnicos valiosos no siempre se traducen en decisión empresarial.",
-    system: "Capas de datos, mapas de flujo y tableros interpretables para dirección.",
-    executiveSignal: "Datos accionables",
-    metric: "88%",
+    phase: "primary",
   },
   {
     name: "Real Estate Técnico",
-    code: "RE",
-    friction: "Activos, expedientes, clientes y seguimiento comercial quedan fragmentados.",
-    system: "Pipeline consultivo, biblioteca documental y control por oportunidad.",
+    code: "INMOB",
+    friction: "Activos, expedientes, oportunidades y seguimiento comercial quedan fragmentados.",
+    system: "Pipeline consultivo, biblioteca documental y control comercial por oportunidad.",
     executiveSignal: "Valor por activo",
     metric: "76%",
+    phase: "primary",
   },
+];
+
+const expansionIndustries: Industry[] = [
   {
-    name: "Minería",
-    code: "MINE",
-    friction: "Operación, seguridad, cumplimiento y reportes exigen trazabilidad constante.",
-    system: "Protocolos digitales, evidencias, indicadores y alertas de cumplimiento.",
-    executiveSignal: "Cumplimiento operativo",
-    metric: "69%",
-  },
-  {
-    name: "Industria",
+    name: "Industria y Manufactura",
     code: "IND",
     friction: "Producción, mantenimiento y administración no comparten una lectura única.",
     system: "Cadencias, tableros, automatizaciones y gobierno operacional por área.",
     executiveSignal: "Capacidad instalada",
     metric: "73%",
+    phase: "expansion",
+  },
+  {
+    name: "Minería",
+    code: "MINA",
+    friction: "Operación, seguridad, cumplimiento y reportes exigen trazabilidad constante.",
+    system: "Protocolos digitales, evidencias, indicadores y alertas de cumplimiento.",
+    executiveSignal: "Cumplimiento operativo",
+    metric: "69%",
+    phase: "expansion",
   },
   {
     name: "Logística Operativa",
-    code: "OPS",
+    code: "LOGI",
     friction: "Despachos, rutas, incidencias y clientes generan fricción invisible.",
     system: "Estados operativos, alertas, responsables y visibilidad de servicio.",
     executiveSignal: "Servicio bajo control",
     metric: "79%",
+    phase: "expansion",
+  },
+  {
+    name: "Retail Operativo",
+    code: "COMERC",
+    friction: "Ventas, inventario, atención y gestión diaria pierden margen por falta de sistema.",
+    system: "Lectura comercial, automatización operativa y control por punto de contacto.",
+    executiveSignal: "Margen bajo control",
+    metric: "67%",
+    phase: "expansion",
   },
 ];
+
+export const industrySystems = [...primaryIndustries, ...expansionIndustries];
 
 const operatingPatterns = [
   {
     title: "Campo distribuido",
     body: "Equipos, supervisores y oficina necesitan operar sobre una verdad compartida, no sobre mensajes sueltos.",
-    signal: "Campo ? Oficina",
+    signal: "Campo → Oficina",
   },
   {
     title: "Documentación crítica",
     body: "Entregables, certificados, expedientes y evidencias deben vivir con versión, estado y responsable.",
-    signal: "Documento ? Trazabilidad",
+    signal: "Documento → Trazabilidad",
   },
   {
     title: "Dirección sin visibilidad",
     body: "Gerencia no debería perseguir información: debe leer avance, riesgo y margen desde una capa ejecutiva.",
-    signal: "Operación ? Decisión",
+    signal: "Operación → Decisión",
   },
 ];
 
@@ -118,15 +132,12 @@ export function IndustriesExperience() {
         </Reveal>
       </section>
 
-      <section className="container-shell pb-24">
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {industrySystems.map((industry, index) => (
-            <Reveal key={industry.name} delay={index * 0.035} direction={index % 2 === 0 ? "left" : "right"}>
-              <IndustryCard industry={industry} index={index} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <IndustryPhase
+        eyebrow="Fase 01 · Sectores primarios"
+        title="Donde VRILLA puede generar impacto inmediato."
+        copy="Verticales técnicas con alto valor económico, procesos complejos y baja madurez digital. Aquí concentramos foco comercial, aprendizaje y validación operativa."
+        industries={primaryIndustries}
+      />
 
       <section className="container-shell pb-24">
         <div className="grid gap-5 lg:grid-cols-3">
@@ -154,50 +165,92 @@ export function IndustriesExperience() {
         </div>
       </section>
 
+      <IndustryPhase
+        eyebrow="Fase 02 · Expansión"
+        title="Módulos próximos a integrarse al sistema."
+        copy="Sectores donde la misma arquitectura puede escalar una vez consolidado el modelo comercial y operativo en las verticales primarias."
+        industries={expansionIndustries}
+        expansion
+      />
+
       <section className="container-shell pb-24">
-        <div className="relative overflow-hidden rounded-[2.4rem] border border-white/10 p-6 surface-panel lg:p-8">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(189,248,255,0.12),transparent_36%)]" />
-          <div className="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <Reveal direction="left">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Criterio VRILLA</p>
-                <h2 className="mt-5 max-w-2xl text-balance text-4xl font-medium tracking-[-0.05em] text-white sm:text-5xl">
-                  Entramos donde la operación ya es suficientemente compleja para necesitar arquitectura.
-                </h2>
+        <Reveal direction="up">
+          <div className="relative overflow-hidden rounded-[2.4rem] border border-cyan-100/15 p-8 text-center surface-panel lg:p-10">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(190,248,255,0.13),transparent_34%)]" />
+            <div className="relative mx-auto max-w-3xl">
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Diagnóstico por contexto</p>
+              <h2 className="mt-5 text-balance text-3xl font-medium tracking-[-0.045em] text-white sm:text-4xl">
+                ¿Tu industria no está en la lista o requiere una solución a medida?
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+                Analizamos tu operación como un sistema, no como un nicho. Si existe fricción operativa, trazabilidad débil o baja visibilidad ejecutiva, podemos mapear el camino.
+              </p>
+              <div className="mt-8">
+                <PremiumLink href="/contacto">Solicitar Diagnóstico Operacional</PremiumLink>
               </div>
-            </Reveal>
-            <Reveal direction="right" delay={0.08}>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {[
-                  ["01", "Trazabilidad", "Saber qué pasó, quién responde y qué sigue."],
-                  ["02", "Control", "Convertir ejecución diaria en lectura gerencial."],
-                  ["03", "Escala", "Crecer sin sumar caos, dependencia ni retrabajo."],
-                ].map(([number, title, body]) => (
-                  <div key={title} className="rounded-[1.4rem] border border-white/10 bg-black/20 p-5">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">{number}</p>
-                    <h3 className="mt-5 text-lg tracking-[-0.03em] text-white">{title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-300">{body}</p>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </>
   );
 }
 
-function IndustryCard({ industry, index }: { industry: Industry; index: number }) {
+function IndustryPhase({
+  eyebrow,
+  title,
+  copy,
+  industries,
+  expansion = false,
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  industries: Industry[];
+  expansion?: boolean;
+}) {
   return (
-    <article className="group relative min-h-[310px] overflow-hidden rounded-[2rem] border border-white/10 p-5 surface-panel transition duration-500 hover:-translate-y-1 hover:border-cyan-100/25">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(184,245,255,0.13),transparent_32%)] opacity-70 transition duration-500 group-hover:opacity-100" />
+    <section className="container-shell pb-24">
+      <div className="mb-10 grid gap-6 lg:grid-cols-[0.72fr_1fr] lg:items-end">
+        <Reveal direction="left">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">{eyebrow}</p>
+            <h2 className="mt-4 max-w-2xl text-balance text-4xl font-medium tracking-[-0.05em] text-white sm:text-5xl">{title}</h2>
+          </div>
+        </Reveal>
+        <Reveal direction="right" delay={0.06}>
+          <p className="max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">{copy}</p>
+        </Reveal>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {industries.map((industry, index) => (
+          <Reveal key={industry.name} delay={index * 0.035} direction={index % 2 === 0 ? "left" : "right"}>
+            <IndustryCard industry={industry} index={index} expansion={expansion} />
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IndustryCard({ industry, index, expansion }: { industry: Industry; index: number; expansion: boolean }) {
+  return (
+    <article
+      className={`group relative min-h-[330px] overflow-hidden rounded-[2rem] p-5 transition duration-500 hover:-translate-y-1 ${
+        expansion
+          ? "border border-dashed border-white/10 opacity-60 hover:border-cyan-100/25 hover:opacity-100"
+          : "border border-white/12 opacity-100 hover:border-cyan-100/25 surface-panel"
+      }`}
+    >
+      <div className={`absolute inset-0 transition duration-500 ${expansion ? "bg-white/[0.025]" : "bg-[radial-gradient(circle_at_80%_10%,rgba(184,245,255,0.13),transparent_32%)] opacity-70 group-hover:opacity-100"}`} />
       <div className="absolute -right-16 top-10 h-40 w-40 rounded-full bg-cyan-200/10 blur-3xl" />
       <div className="relative flex h-full flex-col">
         <div className="flex items-center justify-between gap-4">
-          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-100/55">{industry.code}</p>
+          <p className={`font-mono text-[10px] uppercase tracking-[0.24em] ${expansion ? "text-slate-400 group-hover:text-cyan-100/70" : "text-cyan-100"}`}>
+            [{industry.code}]
+          </p>
           <motion.span
-            className="size-2 rounded-full bg-cyan-100"
+            className={`size-2 rounded-full ${expansion ? "bg-slate-500 group-hover:bg-cyan-100" : "bg-cyan-100"}`}
             animate={{ opacity: [0.35, 1, 0.35], scale: [1, 1.35, 1] }}
             transition={{ duration: 2.8, delay: index * 0.15, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -259,15 +312,15 @@ function IndustryCommandPanel() {
         ))}
       </svg>
       <div className="relative grid h-full min-h-[390px] grid-cols-2 gap-3 sm:grid-cols-4">
-        {industrySystems.slice(0, 8).map((industry, index) => (
+        {industrySystems.map((industry, index) => (
           <motion.div
             key={industry.code}
-            className="self-center rounded-2xl border border-white/10 bg-black/20 p-3 backdrop-blur-md"
+            className={`self-center rounded-2xl border p-3 backdrop-blur-md ${industry.phase === "primary" ? "border-white/10 bg-black/20" : "border-dashed border-white/10 bg-black/10 opacity-70"}`}
             animate={{ y: [0, index % 2 === 0 ? -8 : 8, 0] }}
             transition={{ duration: 4.5 + index * 0.25, repeat: Infinity, ease: "easeInOut" }}
           >
             <div className="flex items-center justify-between gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-100/55">{industry.code}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-100/55">[{industry.code}]</span>
               <ArrowUpRight className="size-3 text-cyan-100/60" />
             </div>
             <p className="mt-3 text-sm text-white">{industry.name}</p>

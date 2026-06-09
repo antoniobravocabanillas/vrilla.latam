@@ -1,128 +1,116 @@
-import { ContactForm } from "@/components/contact-form";
-import { MaturityMap, SolutionRecommender } from "@/components/consulting-experience";
 import { HeroVisual } from "@/components/hero-visual";
-import { BrokenSignal, LayerBridge, MiniArchitecture, PipelineRail } from "@/components/operational-ui";
 import { PageShell } from "@/components/page-shell";
-import {
-  divisions,
-  industries,
-  methodSteps,
-  packagedSolutions,
-  problems,
-  methodOutputs,
-} from "@/components/site-data";
-import { PremiumLink, Reveal, SectionHeading } from "@/components/ui-primitives";
+import { PremiumLink, Reveal } from "@/components/ui-primitives";
 
-const industrialCodes = ["FIELD", "BUILD", "ENG", "GEO", "RE", "MINE", "IND", "OPS"];
+const trustCodes = ["CONST", "TOPO", "ING", "INMOB"];
+
+const operationalFriction = [
+  ["Hojas de cálculo", "Versiones interminables que no explican avance, margen ni riesgo real."],
+  ["Equipos desconectados", "Campo, oficina, ventas y dirección operando con lecturas distintas."],
+  ["Datos que no cuadran", "Indicadores fragmentados que obligan a decidir tarde o por intuición."],
+  ["Dependencia crítica", "Cuellos de botella que viven en una persona, no en un sistema."],
+];
+
+const architectureLayers = [
+  {
+    number: "01",
+    title: "Growth",
+    subtitle: "Adquisición",
+    body: "Digitalizamos y estructuramos canales de entrada para predecir demanda y sostener oportunidades comerciales calificadas.",
+  },
+  {
+    number: "02",
+    title: "Systems",
+    subtitle: "Operación",
+    body: "Eliminamos procesos manuales y conectamos la cadena de valor a un ecosistema operativo con responsables, estados y trazabilidad.",
+    core: true,
+  },
+  {
+    number: "03",
+    title: "Intelligence",
+    subtitle: "Decisión",
+    body: "Convertimos data dispersa en cuadros de mando, señales ejecutivas y lectura operativa en tiempo real.",
+  },
+];
+
+const executiveSignals = [
+  ["Rendimiento operativo", "94%"],
+  ["Cuellos de botella", "0 críticos"],
+  ["Sincronización", "Activa"],
+  ["Arquitectura", "Integrada"],
+];
 
 export default function Home() {
   return (
     <PageShell>
       <section className="relative overflow-hidden">
         <div className="section-veil absolute inset-0" />
-        <div className="container-shell relative grid min-h-[calc(100vh-5rem)] items-center gap-12 py-16 lg:grid-cols-[0.88fr_1.12fr] lg:py-20">
+        <div className="container-shell relative grid min-h-[calc(100vh-5rem)] items-center gap-12 py-16 lg:grid-cols-[0.86fr_1.14fr] lg:py-20">
           <div className="space-y-8">
-            <Reveal>
+            <Reveal direction="left">
               <p className="font-mono text-xs uppercase tracking-[0.32em] text-cyan-100/70">
-                Infraestructura operacional para empresas técnicas
+                VRILLA | Transformación Operacional Digital
               </p>
             </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="text-balance text-4xl font-medium tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-                Transformamos empresas técnicas en operaciones digitales escalables.
+            <Reveal direction="left" delay={0.06}>
+              <h1 className="text-balance text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl lg:text-7xl xl:text-8xl">
+                Menos fricción. Mayor margen. Control total.
               </h1>
             </Reveal>
-            <Reveal delay={0.16}>
+            <Reveal direction="left" delay={0.12}>
               <p className="max-w-2xl text-lg leading-8 text-slate-300">
-                Diseñamos sistemas, automatización y estructuras digitales para ordenar, controlar y hacer crecer empresas técnicas en LATAM.
+                No vendemos software aislado ni campañas de marketing. Diseñamos e implementamos arquitecturas digitales para empresas técnicas y operativas en LATAM. Crecimiento, sistemas e inteligencia centralizada.
               </p>
             </Reveal>
-            <Reveal delay={0.24} className="flex flex-col gap-3 sm:flex-row">
-              <PremiumLink href="/contacto">Solicitar diagnóstico operacional</PremiumLink>
+            <Reveal direction="left" delay={0.18} className="flex flex-col gap-3 sm:flex-row">
+              <PremiumLink href="/contacto">Solicitar Diagnóstico Operacional</PremiumLink>
               <PremiumLink href="/soluciones" subtle>
-                Explorar soluciones
+                Ver arquitectura
               </PremiumLink>
             </Reveal>
-            <Reveal delay={0.3}>
-              <div className="grid max-w-xl gap-3 sm:grid-cols-3">
-                {[
-                  ["Procesos", "conectados"],
-                  ["Decisiones", "visibles"],
-                  ["Escala", "controlada"],
-                ].map(([title, value]) => (
-                  <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.025] px-4 py-3">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">{title}</p>
-                    <p className="mt-2 text-sm text-white">{value}</p>
-                  </div>
-                ))}
+            <Reveal direction="left" delay={0.24}>
+              <div className="max-w-2xl rounded-2xl border border-white/10 bg-white/[0.025] px-4 py-3">
+                <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-slate-500">Arquitecturas para</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {trustCodes.map((code) => (
+                    <span key={code} className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 font-mono text-[10px] tracking-[0.2em] text-cyan-100/75">
+                      [{code}]
+                    </span>
+                  ))}
+                </div>
               </div>
             </Reveal>
           </div>
-          <Reveal delay={0.18}>
+          <Reveal direction="right" delay={0.12}>
             <HeroVisual />
           </Reveal>
         </div>
       </section>
 
       <section className="container-shell py-24 lg:py-28">
-        <SectionHeading
-          eyebrow="Acto 1 · Caos operacional"
-          title="El problema no es solo marketing. Es operación desordenada."
-          copy="Cuando la empresa crece sobre canales improvisados, la pérdida no está solo en ventas: aparece en tiempos, control, trazabilidad y capacidad de escalar."
-        />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {problems.map((problem, index) => (
-            <Reveal key={problem} delay={index * 0.04}>
-              <BrokenSignal label={`Fricción 0${index + 1}`} value={problem} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="container-shell py-24 lg:py-28">
-        <SectionHeading
-          eyebrow="Acto 2–4 · Arquitectura conectada"
-          title="Tres divisiones. Un mismo sistema operativo empresarial."
-          copy="Growth, Systems e Intelligence no funcionan como servicios aislados, sino como capas conectadas de crecimiento, ejecución y control."
-        />
-        <div className="mt-12 grid gap-5 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:items-center">
-          {divisions.map((division, index) => (
-            <div key={division.name} className="contents">
-              <Reveal delay={index * 0.08}>
-                <article className="relative overflow-hidden rounded-[2rem] border border-white/10 p-6 surface-panel">
-                  <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-cyan-300/10 blur-3xl" />
-                  <p className="font-mono text-xs uppercase tracking-[0.24em] text-cyan-100/60">
-                    Layer 0{index + 1}
-                  </p>
-                  <h3 className="mt-6 text-2xl tracking-[-0.03em]">{division.name}</h3>
-                  <p className="mt-4 leading-7 text-slate-300">{division.description}</p>
-                  <MiniArchitecture label="Operational signals" metrics={division.signals} />
-                </article>
-              </Reveal>
-              {index < divisions.length - 1 ? <LayerBridge /> : null}
+        <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+          <Reveal direction="left">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">El problema</p>
+              <h2 className="mt-5 max-w-3xl text-balance text-4xl font-medium tracking-[-0.055em] text-white sm:text-5xl lg:text-6xl">
+                El crecimiento rompe los sistemas tradicionales.
+              </h2>
             </div>
-          ))}
+          </Reveal>
+          <Reveal direction="right" delay={0.06}>
+            <p className="max-w-2xl text-lg leading-8 text-slate-300">
+              Hojas de cálculo interminables, equipos desconectados, datos que no cuadran y cuellos de botella que dependen de una sola persona. Si tu facturación crece pero tu margen operativo disminuye, tu problema no es de ventas. Es de arquitectura.
+            </p>
+          </Reveal>
         </div>
-      </section>
-
-      <section className="container-shell py-24 lg:py-28">
-        <SectionHeading
-          eyebrow="Acto 5 · Módulos"
-          title="Transformación empaquetada para problemas de fondo."
-          copy="Cada solución es una pieza de infraestructura. No vende una tarea aislada; resuelve una falla estructural del negocio."
-        />
-        <div className="mt-12 grid gap-4 lg:grid-cols-2">
-          {packagedSolutions.map((solution, index) => (
-            <Reveal key={solution.title} delay={index * 0.06}>
-              <article className="relative overflow-hidden rounded-[1.9rem] border border-white/10 p-6 surface-panel">
-                <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-blue-400/10 blur-3xl" />
-                <p className="font-mono text-xs text-cyan-100/50">Module 0{index + 1}</p>
-                <h3 className="mt-5 text-2xl tracking-[-0.03em]">{solution.title}</h3>
-                <p className="mt-3 max-w-xl leading-7 text-slate-300">{solution.description}</p>
-                <MiniArchitecture
-                  label="System state"
-                  metrics={["Entrada", "Proceso", "Control"]}
-                />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {operationalFriction.map(([title, body], index) => (
+            <Reveal key={title} delay={index * 0.04} direction={index % 2 === 0 ? "left" : "right"}>
+              <article className="relative min-h-[230px] overflow-hidden rounded-[1.8rem] border border-white/10 p-5 surface-panel">
+                <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-rose-200/40 to-transparent" />
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-rose-100/50">Fricción 0{index + 1}</p>
+                <h3 className="mt-6 text-xl tracking-[-0.035em] text-white">{title}</h3>
+                <p className="mt-4 text-sm leading-6 text-slate-300">{body}</p>
               </article>
             </Reveal>
           ))}
@@ -130,141 +118,64 @@ export default function Home() {
       </section>
 
       <section className="container-shell py-24 lg:py-28">
-        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-          <SectionHeading
-            eyebrow="Acto 6 · Executive layer"
-            title="Visibilidad ejecutiva para decisiones con menos intuición y más control."
-            copy="La transformación no termina en automatizar. Culmina cuando dirección puede leer la empresa como un sistema: KPIs, trazabilidad, cuellos de botella y señales tempranas."
-          />
-          <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              ["KPI", "Margen por proyecto"],
-              ["Trace", "Campo ↔ oficina"],
-              ["Risk", "Dependencias críticas"],
-            ].map(([tag, title], index) => (
-              <Reveal key={title} delay={index * 0.08}>
-                <article className="rounded-[1.6rem] border border-white/10 p-5 surface-panel">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">{tag}</p>
-                  <p className="mt-6 text-lg">{title}</p>
-                  <div className="mt-5 h-1.5 rounded-full bg-white/8">
-                    <div className="h-1.5 rounded-full bg-cyan-100/75" style={{ width: `${58 + index * 14}%` }} />
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-        <div className="mt-8 rounded-[2rem] border border-white/10 p-5 surface-panel">
-          <div className="grid gap-4 md:grid-cols-4">
-            {[
-              ["Margen", "por proyecto"],
-              ["Capacidad", "por cuadrilla"],
-              ["Riesgo", "por dependencia"],
-              ["Avance", "por frente"],
-            ].map(([title, value]) => (
-              <div key={title} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">{title}</p>
-                <p className="mt-4 text-lg text-white">{value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="container-shell py-24 lg:py-28">
-        <SectionHeading
-          eyebrow="Acto 7 · Sectores"
-          title="Diseñado para empresas donde la operación manda."
-          copy="El lenguaje visual se adapta a verticales técnicas sin recurrir a íconos genéricos: cada sector entra al sistema con un código operacional propio."
-        />
-        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {industries.map((industry, index) => (
-            <Reveal key={industry} delay={index * 0.03}>
-              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] px-5 py-6 surface-panel">
-                <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-cyan-100/35 to-transparent" />
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">
-                  {industrialCodes[index]}
-                </p>
-                <p className="mt-6 text-slate-100">{industry}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="container-shell py-24 lg:py-28">
-        <SectionHeading eyebrow="Pipeline" title="Del diagnóstico al control escalable." />
-        <PipelineRail steps={methodSteps} />
-        <div className="mt-5 grid gap-4 lg:grid-cols-5">
-          {methodOutputs.map((item) => (
-            <article key={item.step} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">{item.output}</p>
-              <p className="mt-4 text-sm leading-6 text-slate-300">{item.detail}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="container-shell py-24 lg:py-28">
-        <div className="grid gap-6 lg:grid-cols-2">
-          <MaturityMap />
-          <SolutionRecommender />
-        </div>
-      </section>
-
-      <section className="container-shell py-24 lg:py-28">
-        <div className="grid gap-6 rounded-[2rem] border border-white/10 p-6 surface-panel lg:grid-cols-[0.72fr_1.28fr] lg:p-8">
-          <Reveal>
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Caso ICC</p>
-              <h2 className="mt-4 text-3xl tracking-[-0.04em] sm:text-4xl">Laboratorio operacional vivo</h2>
-              <p className="mt-5 max-w-md leading-7 text-slate-300">
-                ICC valida la arquitectura de VRILLA en una operación técnica real: campo, oficina, dirección y datos leyendo la misma verdad operacional.
-              </p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {[
-                  ["12+", "años de experiencia técnica"],
-                  ["QA/QC", "entregables auditables"],
-                  ["Nacional", "cobertura operativa"],
-                  ["360°", "servicios, equipos y soporte"],
-                ].map(([value, label]) => (
-                  <div key={label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                    <p className="text-xl tracking-[-0.03em] text-white">{value}</p>
-                    <p className="mt-1 text-sm text-slate-400">{label}</p>
-                  </div>
+        <Reveal direction="up">
+          <div className="relative overflow-hidden rounded-[2.6rem] border border-white/10 p-6 surface-panel lg:p-8">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_0%,rgba(184,245,255,0.13),transparent_34%)]" />
+            <div className="relative">
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Nuestra arquitectura</p>
+              <h2 className="mt-5 max-w-3xl text-balance text-4xl font-medium tracking-[-0.055em] text-white sm:text-5xl">
+                Un ecosistema, tres capas de integración.
+              </h2>
+              <div className="mt-12 grid gap-5 lg:grid-cols-[1fr_1.15fr_1fr] lg:items-center">
+                {architectureLayers.map((layer, index) => (
+                  <article
+                    key={layer.title}
+                    className={`relative overflow-hidden rounded-[2rem] border p-6 ${layer.core ? "border-cyan-100/25 bg-cyan-100/[0.055] lg:order-none" : "border-white/10 bg-black/20"}`}
+                  >
+                    <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-100/45 to-transparent" />
+                    <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-100/60">[{layer.number}] {layer.title}</p>
+                    <h3 className="mt-6 text-2xl tracking-[-0.04em] text-white">{layer.subtitle}</h3>
+                    <p className="mt-4 min-h-28 leading-7 text-slate-300">{layer.body}</p>
+                    <div className="mt-6 h-px bg-white/10">
+                      <div className="h-px bg-cyan-100/75" style={{ width: `${68 + index * 8}%` }} />
+                    </div>
+                  </article>
                 ))}
               </div>
             </div>
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="container-shell py-24 lg:py-28">
+        <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+          <Reveal direction="left">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">La ventaja VRILLA</p>
+              <h2 className="mt-5 max-w-2xl text-balance text-4xl font-medium tracking-[-0.055em] text-white sm:text-5xl">
+                Ingeniería de procesos. No intuición.
+              </h2>
+              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+                Detrás de cada arquitectura hay análisis operacional, criterio de software, automatización y estrategia de crecimiento. Construimos activos digitales que le pertenecen a tu empresa.
+              </p>
+            </div>
           </Reveal>
-          <Reveal delay={0.08}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                "Digitalización de procesos",
-                "Dashboards ejecutivos",
-                "Trazabilidad de proyectos",
-                "Conexión campo/oficina",
-              ].map((item, index) => (
-                <div key={item} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-100/50">Lab 0{index + 1}</p>
-                  <p className="mt-4 text-slate-100">{item}</p>
+          <Reveal direction="right" delay={0.08}>
+            <div className="relative overflow-hidden rounded-[2.3rem] border border-white/10 p-6 surface-panel">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(184,245,255,0.14),transparent_34%)]" />
+              <div className="relative">
+                <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-100/60">Interfaz operacional</p>
+                  <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 font-mono text-[10px] text-emerald-100">Activa</span>
                 </div>
-              ))}
-              <div className="sm:col-span-2 rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Validation map</p>
-                <div className="mt-4 grid gap-3 sm:grid-cols-4">
-                  {["Campo", "Oficina", "BI", "Dirección"].map((item) => (
-                    <div key={item} className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-4 text-center text-sm">
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="sm:col-span-2 rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-100/55">Evidencia de operación</p>
-                <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                  {["42 km controlados", "128 ha georreferenciadas", "0.8 mm de tolerancia"].map((item) => (
-                    <div key={item} className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-4 text-sm text-slate-200">
-                      {item}
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {executiveSignals.map(([label, value], index) => (
+                    <div key={label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">{label}</p>
+                      <p className="mt-4 text-2xl tracking-[-0.04em] text-white">{value}</p>
+                      <div className="mt-4 h-1.5 rounded-full bg-white/8">
+                        <div className="h-1.5 rounded-full bg-cyan-100/75" style={{ width: `${62 + index * 8}%` }} />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -275,14 +186,23 @@ export default function Home() {
       </section>
 
       <section className="container-shell py-24 lg:py-28">
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <SectionHeading
-            eyebrow="Diagnóstico"
-            title="Solicita un diagnóstico operacional digital."
-            copy="La conversación correcta no empieza con una web o una campaña. Empieza entendiendo dónde se rompe hoy tu operación y qué infraestructura necesita para crecer."
-          />
-          <ContactForm />
-        </div>
+        <Reveal direction="up">
+          <div className="relative overflow-hidden rounded-[2.6rem] border border-cyan-100/15 p-8 text-center surface-panel lg:p-12">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(190,248,255,0.13),transparent_34%)]" />
+            <div className="relative mx-auto max-w-3xl">
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Diagnóstico operacional</p>
+              <h2 className="mt-5 text-balance text-4xl font-medium tracking-[-0.055em] text-white sm:text-5xl">
+                La transformación no es comprar herramientas. Es integrarlas.
+              </h2>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+                Escuchamos, diagnosticamos y diseñamos la arquitectura que permite operar mejor, decidir con datos y escalar sin sumar caos.
+              </p>
+              <div className="mt-8">
+                <PremiumLink href="/contacto">Solicitar Diagnóstico Operacional</PremiumLink>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </section>
     </PageShell>
   );

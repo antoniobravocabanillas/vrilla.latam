@@ -38,8 +38,8 @@ export function HeroVisual() {
       />
       <div className="absolute left-4 top-4 right-4 flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-3 backdrop-blur-md">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-100/55">Operational core</p>
-          <p className="mt-1 text-sm text-white">Infraestructura conectada</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-100/55">Operational architecture</p>
+          <p className="mt-1 text-sm text-white">Arquitectura conectada</p>
         </div>
         <div className="flex items-center gap-2 text-xs text-slate-300">
           <span className="relative flex size-2">

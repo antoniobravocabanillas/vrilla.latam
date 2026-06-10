@@ -158,14 +158,6 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
-        <Reveal direction="up" delay={0.08}>
-          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-[2rem] border border-white/10 p-5 surface-panel sm:flex-row sm:items-center">
-            <p className="max-w-2xl text-sm leading-6 text-slate-300">
-              Sin cifras inventadas: las métricas de impacto se publican solo cuando existe validación real del cliente o del equipo Growth.
-            </p>
-            <PremiumLink href="/contacto">Solicitar Diagnóstico</PremiumLink>
-          </div>
-        </Reveal>
       </section>
 
       <section className="container-shell py-24 lg:py-28">

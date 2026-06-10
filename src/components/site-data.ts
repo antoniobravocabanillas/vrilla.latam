@@ -1,10 +1,16 @@
 export const navItems = [
+  { href: "/", label: "Inicio" },
   { href: "/soluciones", label: "Soluciones" },
+  { href: "/metodo", label: "Proceso" },
+  { href: "/casos", label: "Casos / Resultados" },
+];
+
+export const footerNavItems = [
+  ...navItems,
   { href: "/industrias", label: "Industrias" },
-  { href: "/metodo", label: "Método" },
-  { href: "/casos", label: "Casos" },
-  { href: "/diagnostico", label: "Diagnóstico" },
   { href: "/nosotros", label: "Nosotros" },
+  { href: "/diagnostico", label: "Diagnóstico interactivo" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export const problems = [

@@ -84,10 +84,10 @@ export function PremiumLink({
     <Link
       href={href}
       className={cn(
-        "group inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-medium transition-all duration-300",
+        "group inline-flex items-center gap-2 rounded-full border px-6 py-3.5 text-[15px] font-medium transition-all duration-300 active:scale-[0.98]",
         subtle
           ? "border-white/10 bg-white/[0.03] text-slate-200 hover:border-cyan-200/30 hover:bg-white/[0.07]"
-          : "border-cyan-100/20 bg-cyan-100 text-slate-950 hover:-translate-y-0.5 hover:bg-white",
+          : "border-cyan-100/30 bg-cyan-100 text-slate-950 shadow-[0_0_34px_rgba(207,250,254,0.17)] hover:-translate-y-0.5 hover:border-white/80 hover:bg-white hover:shadow-[0_0_52px_rgba(207,250,254,0.24)]",
       )}
     >
       {children}

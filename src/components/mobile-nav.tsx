@@ -15,7 +15,7 @@ export function MobileNav() {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex size-11 items-center justify-center rounded-full border border-white/14 bg-white/[0.08] text-white shadow-[0_10px_34px_rgba(0,0,0,0.36)] transition active:scale-95"
+        className="inline-flex size-11 items-center justify-center rounded-full border border-white/14 bg-[#080d14]/95 text-white shadow-[0_10px_34px_rgba(0,0,0,0.36)] transition active:scale-95"
         aria-label={open ? "Cerrar menú" : "Abrir menú"}
         aria-expanded={open}
       >
@@ -44,9 +44,9 @@ export function MobileNav() {
               href="/contacto"
               scroll
               onClick={() => setOpen(false)}
-              className="mt-1 rounded-2xl bg-cyan-100 px-4 py-3.5 text-sm font-medium text-slate-950 transition active:scale-[0.99]"
+              className="mt-1 rounded-2xl bg-cyan-100 px-4 py-3.5 text-sm font-medium text-slate-950 shadow-[0_0_34px_rgba(207,250,254,0.16)] transition active:scale-[0.99]"
             >
-              Solicitar diagnóstico
+              Solicitar Diagnóstico
             </Link>
           </nav>
         </div>

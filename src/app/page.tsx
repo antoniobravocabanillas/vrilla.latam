@@ -82,7 +82,7 @@ export default function Home() {
     <PageShell>
       <section className="relative overflow-hidden">
         <div className="section-veil absolute inset-0" />
-        <div className="container-shell relative grid min-h-[calc(100vh-5rem)] items-center gap-12 py-16 lg:grid-cols-[0.88fr_1.12fr] lg:py-20">
+        <div className="container-shell relative grid min-h-[calc(100vh-5rem)] items-center gap-12 py-16 lg:grid-cols-[1.02fr_0.98fr] lg:py-20">
           <div className="space-y-8">
             <Reveal direction="left">
               <p className="font-mono text-xs uppercase tracking-[0.32em] text-cyan-100/70">
@@ -90,7 +90,7 @@ export default function Home() {
               </p>
             </Reveal>
             <Reveal direction="left" delay={0.06}>
-              <h1 className="text-balance text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl lg:text-7xl xl:text-8xl">
+              <h1 className="text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.06em] text-white sm:text-6xl lg:text-[4.45rem] xl:text-[4.9rem]">
                 Sistemas digitales para operar mejor, vender con más control y escalar con inteligencia.
               </h1>
             </Reveal>
@@ -166,7 +166,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(201,250,255,0.12),transparent_36%)]" />
             <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-100/55 to-transparent" />
             <div className="relative">
-              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">Caso real ? Operaci?n integrada</p>
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-100/70">CASO REAL / OPERACION INTEGRADA</p>
               <div className="mt-5 grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
                 <div>
                   <h2 className="max-w-3xl text-balance text-4xl font-medium tracking-[-0.055em] text-white sm:text-5xl lg:text-6xl">

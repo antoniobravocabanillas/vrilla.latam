@@ -11,11 +11,11 @@ export function SiteHeader() {
         <Link href="/" className="group relative flex items-center" scroll>
           <span className="absolute -inset-4 rounded-full bg-cyan-100/0 blur-2xl transition group-hover:bg-cyan-100/10" />
           <Image
-            src="/brand/vrilla-logo.png"
+            src="/brand/vrilla-logo-horizontal-light.svg"
             alt="VRILLA"
-            width={118}
-            height={42}
-            className="relative h-auto w-[96px] opacity-95 sm:w-[108px] lg:w-[118px]"
+            width={150}
+            height={32}
+            className="relative h-auto w-[112px] opacity-95 sm:w-[128px] lg:w-[142px]"
             priority
           />
         </Link>
